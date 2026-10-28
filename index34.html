@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080b12">
+  <meta name="description" content="Ankit Kaler — developer portfolio, selected projects, skills and contact.">
+  <title>Ankit Kaler | Developer Portfolio</title>
+
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #080b12;
+      --panel: #101521;
+      --panel-light: #151c2a;
+      --text: #f4f7fb;
+      --muted: #a4aec0;
+      --cyan: #63f2e4;
+      --purple: #a78bfa;
+      --line: rgba(255,255,255,.1);
+      --gradient: linear-gradient(110deg, var(--cyan), var(--purple));
+      --max-width: 1120px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+    body {
+      margin: 0;
+      min-width: 320px;
+      background:
+        radial-gradient(ellipse at 12% 12%, rgba(99,242,228,.09), transparent 30rem),
+        radial-gradient(ellipse at 88% 36%, rgba(167,139,250,.1), transparent 32rem),
+        var(--bg);
+      color: var(--text);
+      font: 16px/1.65 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button, input, textarea { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visible {
+      outline: 2px solid var(--cyan);
+      outline-offset: 4px;
+    }
+
+    .container { width: min(var(--max-width), calc(100% - 40px)); margin-inline: auto; }
+    .skip-link {
+      position: fixed; top: 8px; left: 8px; z-index: 100;
+      transform: translateY(-150%); background: var(--cyan); color: #071012;
+      padding: 10px 14px; border-radius: 8px;
+    }
+    .skip-link:focus { transform: translateY(0); }
+
+    .site-header {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(8,11,18,.82);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(16px);
+    }
+    .nav-wrap {
+      min-height: 74px; display: flex; align-items: center;
+      justify-content: space-between; gap: 24px;
+    }
+    .brand { font-weight: 800; letter-spacing: -.04em; font-size: 1.1rem; }
+    .brand span { color: var(--cyan); }
+    .nav-links { display: flex; align-items: center; gap: 30px; list-style: none; margin: 0; padding: 0; }
+    .nav-links a { color: var(--muted); font-size: .93rem; transition: color .2s; }
+    .nav-links a:hover, .nav-links a[aria-current="location"] { color: var(--cyan); }
+    .menu-toggle {
+      display: none; border: 1px solid var(--line); background: var(--panel);
+      color: var(--text); border-radius: 10px; width: 44px; height: 44px; cursor: pointer;
+    }
+
+    .hero {
+      min-height: 670px; display: grid; align-items: center;
+      padding: 100px 0 86px; position: relative;
+    }
+    .hero-grid {
+      display: grid; grid-template-columns: 1.25fr .75fr;
+      gap: 55px; align-items: center;
+    }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      border: 1px solid var(--line); background: rgba(255,255,255,.03);
+      border-radius: 999px; padding: 7px 13px; color: var(--muted);
+      font-size: .83rem;
+    }
+    .status-dot {
+      width: 8px; height: 8px; border-radius: 50%; background: var(--cyan);
+      box-shadow: 0 0 15px var(--cyan);
+    }
+    h1 {
+      max-width: 740px; margin: 22px 0 18px;
+      font-size: clamp(2.8rem, 7vw, 5.4rem); line-height: 1.02;
+      letter-spacing: -.065em;
+    }
+    .gradient-text {
+      background: var(--gradient); color: transparent; background-clip: text;
+      -webkit-background-clip: text;
+    }
+    .hero-copy { max-width: 620px; color: var(--muted); font-size: 1.08rem; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 13px; margin-top: 30px; }
+    .button {
+      min-height: 48px; display: inline-flex; justify-content: center; align-items: center;
+      gap: 9px; padding: 11px 19px; border-radius: 12px; font-weight: 700;
+      border: 1px solid transparent; transition: transform .2s, border-color .2s, background .2s;
+    }
+    .button:hover { transform: translateY(-2px); }
+    .button-primary { background: var(--gradient); color: #071012; }
+    .button-secondary { border-color: var(--line); background: rgba(255,255,255,.035); }
+    .button-secondary:hover { border-color: rgba(99,242,228,.55); }
+
+    .profile-card {
+      position: relative; width: min(100%, 350px); aspect-ratio: 1;
+      justify-self: center; display: grid; place-items: center;
+      border: 1px solid rgba(255,255,255,.12); border-radius: 34px;
+      background:
+        radial-gradient(circle at 30% 20%, rgba(99,242,228,.2), transparent 42%),
+        linear-gradient(145deg, rgba(255,255,255,.08), rgba(255,255,255,.015));
+      box-shadow: 0 30px 90px rgba(0,0,0,.35);
+      overflow: hidden;
+    }
+    .profile-card::before, .profile-card::after {
+      content: ""; position: absolute; border: 1px solid rgba(99,242,228,.22);
+      border-radius: 50%; width: 75%; aspect-ratio: 1;
+    }
+    .profile-card::after { width: 105%; border-color: rgba(167,139,250,.18); }
+    .avatar {
+      z-index: 1; width: 150px; height: 150px; display: grid; place-items: center;
+      border-radius: 50%; background: var(--gradient); color: #081014;
+      font-size: 3.5rem; font-weight: 900; letter-spacing: -.08em;
+      box-shadow: 0 0 70px rgba(99,242,228,.18);
+    }
+    .floating-label {
+      position: absolute; z-index: 2; padding: 9px 13px;
+      border: 1px solid var(--line); border-radius: 12px;
+      background: rgba(16,21,33,.88); color: var(--muted); font-size: .82rem;
+    }
+    .label-one { top: 17%; left: 4%; }
+    .label-two { right: 3%; bottom: 19%; }
+
+    .section { padding: 88px 0; }
+    .section-heading { max-width: 670px; margin-bottom: 34px; }
+    .section-kicker {
+      color: var(--cyan); font-size: .78rem; font-weight: 800;
+      text-transform: uppercase; letter-spacing: .16em;
+    }
+    h2 { margin: 8px 0 10px; font-size: clamp(2rem, 4vw, 3rem); line-height: 1.15; letter-spacing: -.045em; }
+    .section-heading p, .muted { color: var(--muted); }
+    .about-grid { display: grid; grid-template-columns: 1.2fr .8fr; gap: 24px; }
+    .card {
+      border: 1px solid var(--line); border-radius: 20px;
+      background: linear-gradient(145deg, rgba(255,255,255,.045), rgba(255,255,255,.015));
+      padding: 25px;
+    }
+    .about-card p { color: var(--muted); margin: 0 0 14px; }
+    .about-card p:last-child { margin-bottom: 0; }
+    .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .stat { padding: 18px; border: 1px solid var(--line); border-radius: 16px; background: rgba(255,255,255,.025); }
+    .stat strong { display: block; font-size: 1.45rem; color: var(--cyan); }
+    .stat span { color: var(--muted); font-size: .85rem; }
+
+    .skills { display: flex; flex-wrap: wrap; gap: 10px; }
+    .skill {
+      padding: 9px 13px; border: 1px solid var(--line); border-radius: 999px;
+      background: rgba(255,255,255,.03); color: #d4dbea; font-size: .9rem;
+    }
+
+    .project-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .project-card { padding: 0; overflow: hidden; transition: transform .2s, border-color .2s; }
+    .project-card:hover { transform: translateY(-5px); border-color: rgba(99,242,228,.45); }
+    .project-art {
+      height: 175px; display: grid; place-items: center; overflow: hidden;
+      background:
+        radial-gradient(circle at 70% 20%, rgba(99,242,228,.24), transparent 28%),
+        linear-gradient(135deg, #17263a, #171329);
+    }
+    .project-art span { font-size: 3.2rem; filter: drop-shadow(0 0 20px rgba(99,242,228,.4)); }
+    .project-content { padding: 21px; }
+    .project-content h3 { margin: 0 0 8px; font-size: 1.12rem; }
+    .project-content p { margin: 0; color: var(--muted); font-size: .92rem; }
+    .tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 17px; }
+    .tags span { color: var(--cyan); font-size: .77rem; background: rgba(99,242,228,.08); padding: 4px 8px; border-radius: 6px; }
+    .project-links { display: flex; gap: 16px; margin-top: 18px; font-size: .87rem; }
+    .project-links a { color: var(--text); }
+    .project-links a:hover { color: var(--cyan); }
+
+    .contact-grid { display: grid; grid-template-columns: .85fr 1.15fr; gap: 24px; align-items: start; }
+    .contact-card p { color: var(--muted); }
+    .contact-detail { display: inline-block; margin-top: 10px; color: var(--cyan); overflow-wrap: anywhere; }
+    .contact-form { display: grid; gap: 14px; }
+    .field { display: grid; gap: 7px; }
+    .field label { font-size: .88rem; color: #d4dbea; }
+    .field input, .field textarea {
+      width: 100%; padding: 13px 14px; color: var(--text);
+      background: rgba(0,0,0,.22); border: 1px solid var(--line);
+      border-radius: 10px; resize: vertical;
+    }
+    .field input::placeholder, .field textarea::placeholder { color: #778297; }
+    .form-note { min-height: 1.5em; margin: 0; color: var(--cyan); font-size: .88rem; }
+
+    footer { padding: 25px 0 34px; border-top: 1px solid var(--line); color: var(--muted); font-size: .88rem; }
+    .footer-wrap { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+
+    .reveal { opacity: 0; transform: translateY(18px); transition: opacity .65s ease, transform .65s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 800px) {
+      .hero { min-height: auto; padding: 76px 0 55px; }
+      .hero-grid { grid-template-columns: 1fr; gap: 42px; }
+      .profile-card { width: min(78vw, 310px); }
+      .about-grid, .contact-grid { grid-template-columns: 1fr; }
+      .project-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 620px) {
+      .container { width: min(100% - 30px, var(--max-width)); }
+      .nav-wrap { min-height: 66px; }
+      .menu-toggle { display: inline-grid; place-items: center; }
+      .nav-links {
+        display: none; position: absolute; top: 66px; left: 0; right: 0;
+        padding: 12px 20px 20px; flex-direction: column; align-items: stretch;
+        gap: 0; background: rgba(8,11,18,.97); border-bottom: 1px solid var(--line);
+      }
+      .nav-links.open { display: flex; }
+      .nav-links a { display: block; padding: 12px 4px; }
+      .hero { padding-top: 58px; }
+      .hero-grid { gap: 34px; }
+      .section { padding: 66px 0; }
+      .project-grid { grid-template-columns: 1fr; }
+      .project-art { height: 155px; }
+      .card { padding: 20px; }
+      .footer-wrap { flex-direction: column; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="#home" aria-label="Ankit Kaler, home">ANKIT<span>.</span></a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Open navigation">☰</button>
+      <nav aria-label="Main navigation">
+        <ul class="nav-links" id="nav-links">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero container" id="home">
+      <div class="hero-grid">
+        <div>
+          <div class="eyebrow"><span class="status-dot"></span> Available for opportunities</div>
+          <h1>Building digital<br><span class="gradient-text">things that matter.</span></h1>
+          <p class="hero-copy">
+            Hi, I’m Ankit Kaler — a developer interested in AI, full-stack development,
+            and crafting useful, thoughtful web experiences.
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#projects">Explore my work <span aria-hidden="true">↗</span></a>
+            <a class="button button-secondary" href="#contact">Get in touch</a>
+          </div>
+        </div>
+        <div class="profile-card" aria-label="Ankit Kaler profile graphic">
+          <span class="floating-label label-one">Full-stack developer</span>
+          <div class="avatar" aria-hidden="true">AK</div>
+          <span class="floating-label label-two">AI · Web · Ideas</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section container" id="about">
+      <div class="section-heading reveal">
+        <span class="section-kicker">A little about me</span>
+        <h2>Curious by nature.<br><span class="gradient-text">Developer by choice.</span></h2>
+      </div>
+      <div class="about-grid">
+        <article class="card about-card reveal">
+          <p>I enjoy turning challenging ideas into clean, practical digital experiences. My interests include building web applications, exploring AI, and learning how technology can solve real problems.</p>
+          <p>This portfolio is a snapshot of my work. Replace this paragraph with your own story, experience, and goals.</p>
+        </article>
+        <div class="stats reveal" aria-label="Portfolio highlights">
+          <div class="stat"><strong>01+</strong><span>Years learning</span></div>
+          <div class="stat"><strong>03</strong><span>Featured projects</span></div>
+          <div class="stat"><strong>∞</strong><span>Ideas to explore</span></div>
+          <div class="stat"><strong>100%</strong><span>Curiosity</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section container" id="skills">
+      <div class="section-heading reveal">
+        <span class="section-kicker">What I work with</span>
+        <h2>Tools & <span class="gradient-text">technologies</span></h2>
+        <p>Update these tags to match the tools you use and the skills you want to highlight.</p>
+      </div>
+      <div class="skills reveal">
+        <span class="skill">HTML</span><span class="skill">CSS</span>
+        <span class="skill">JavaScript</span><span class="skill">React</span>
+        <span class="skill">Node.js</span><span class="skill">Python</span>
+        <span class="skill">AI / ML</span><span class="skill">Git & GitHub</span>
+        <span class="skill">Responsive Design</span>
+      </div>
+    </section>
+
+    <section class="section container" id="projects">
+      <div class="section-heading reveal">
+        <span class="section-kicker">Selected work</span>
+        <h2>Projects I’m <span class="gradient-text">proud of</span></h2>
+        <p>Replace the sample content and links with your real projects.</p>
+      </div>
+
+      <div class="project-grid">
+        <article class="card project-card reveal">
+          <div class="project-art" aria-hidden="true"><span>◈</span></div>
+          <div class="project-content">
+            <h3>AI Assistant</h3>
+            <p>A helpful interface for exploring AI-powered workflows and ideas.</p>
+            <div class="tags"><span>JavaScript</span><span>AI</span><span>API</span></div>
+            <div class="project-links"><a href="https://github.com/" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a href="#contact">Details ↗</a></div>
+          </div>
+        </article>
+
+        <article class="card project-card reveal">
+          <div class="project-art" aria-hidden="true"><span>▧</span></div>
+          <div class="project-content">
+            <h3>Portfolio Website</h3>
+            <p>A responsive personal website focused on clear design and accessibility.</p>
+            <div class="tags"><span>HTML</span><span>CSS</span><span>Design</span></div>
+            <div class="project-links"><a href="https://github.com/" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a href="#contact">Details ↗</a></div>
+          </div>
+        </article>
+
+        <article class="card project-card reveal">
+          <div class="project-art" aria-hidden="true"><span>⌘</span></div>
+          <div class="project-content">
+            <h3>Productivity App</h3>
+            <p>A simple app concept for organizing tasks and keeping work on track.</p>
+            <div class="tags"><span>React</span><span>UI</span><span>Web</span></div>
+            <div class="project-links"><a href="https://github.com/" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a href="#contact">Details ↗</a></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section container" id="contact">
+      <div class="section-heading reveal">
+        <span class="section-kicker">Contact</span>
+        <h2>Let’s make something <span class="gradient-text">great.</span></h2>
+        <p>Have an idea or opportunity? Send a message.</p>
+      </div>
+      <div class="contact-grid">
+        <div class="card contact-card reveal">
+          <h3>Start a conversation</h3>
+          <p>The form opens your email app with the message ready to send. Change the email address in the JavaScript below to your own.</p>
+          <a class="contact-detail" href="mailto:hello@example.com">hello@example.com</a>
+        </div>
+
+        <form class="card contact-form reveal" id="contact-form">
+          <div class="field">
+            <label for="name">Your name</label>
+            <input id="name" name="name" type="text" placeholder="Jane Doe" autocomplete="name" required>
+          </div>
+          <div class="field">
+            <label for="email">Your email</label>
+            <input id="email" name="email" type="email" placeholder="jane@example.com" autocomplete="email" required>
+          </div>
+          <div class="field">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" placeholder="Tell me a little about your idea…" required></textarea>
+          </div>
+          <button class="button button-primary" type="submit">Prepare email <span aria-hidden="true">↗</span></button>
+          <p class="form-note" id="form-note" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-wrap">
+      <span>© <span id="year"></span> Ankit Kaler. Built with care.</span>
+      <span>Designed for the web, made to work everywhere.</span>
+    </div>
+  </footer>
+
+  <script>
+    const menuButton = document.querySelector(".menu-toggle");
+    const navLinks = document.querySelector(".nav-links");
+
+    menuButton.addEventListener("click", () => {
+      const isOpen = menuButton.getAttribute("aria-expanded") === "true";
+      menuButton.setAttribute("aria-expanded", String(!isOpen));
+      menuButton.setAttribute("aria-label", isOpen ? "Open navigation" : "Close navigation");
+      navLinks.classList.toggle("open", !isOpen);
+    });
+
+    navLinks.addEventListener("click", (event) => {
+      if (event.target.closest("a")) {
+        navLinks.classList.remove("open");
+        menuButton.setAttribute("aria-expanded", "false");
+        menuButton.setAttribute("aria-label", "Open navigation");
+      }
+    });
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const revealItems = document.querySelectorAll(".reveal");
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver((entries, currentObserver) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            currentObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+
+      revealItems.forEach((item) => observer.observe(item));
+    } else {
+      revealItems.forEach((item) => item.classList.add("visible"));
+    }
+
+    document.getElementById("contact-form").addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      const form = event.currentTarget;
+      const name = form.elements.name.value.trim();
+      const email = form.elements.email.value.trim();
+      const message = form.elements.message.value.trim();
+      const recipient = "hello@example.com"; // Replace with your email address
+      const subject = encodeURIComponent(`Portfolio message from ${name}`);
+      const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
+
+      document.getElementById("form-note").textContent =
+        "Your email app is opening with the message. Replace hello@example.com with your email first.";
+
+      window.location.href = `mailto:${recipient}?subject=${subject}&body=${body}`;
+    });
+  </script>
+</body>
+</html>
